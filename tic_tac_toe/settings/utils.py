@@ -95,26 +95,39 @@ def check_win(settings):
 
 
 def draw_xo(row, col, x_img, o_img, settings):
-    if row == 1:
-        pos_x = 30
-    if row == 2:
-        pos_x = settings.width/3 + 30
-    if row == 3:
-        pos_x = settings.width/3*2 + 30
+    config_col = {
+        "col_1": {
+            "pos_y": 30
+        },
+        "col_2": {
+            "pos_y": settings.height/3 + 30
+        },
+        "col_3": {
+            "pos_y": settings.height/3*2 + 30
+        }
+    }
 
-    if col == 1:
-        pos_y = 30
-    if col == 2:
-        pos_y = settings.height/3 + 30
-    if col == 3:
-        pos_y = settings.height/3*2 + 30
+    config_row = {
+        "row_1": {
+            "pos_x": 30
+        },
+        "row_2": {
+            "pos_x": settings.width/3 + 30
+        },
+        "row_3": {
+            "pos_x": settings.width/3*2 + 30
+        }
+    }
+
+    config_col_list = list(config_col)
+    config_row_list = list(config_row)
 
     settings.TTT[row-1][col-1] = settings.XO
     if (settings.XO == 'x'):
-        settings.screen.blit(x_img, (pos_y, pos_x))
+        settings.screen.blit(x_img, (config_col[config_col_list[col-1]]['pos_y'], config_row[config_row_list[row-1]]['pos_x']))
         settings.XO = 'o'
     else:
-        settings.screen.blit(o_img, (pos_y, pos_x))
+        settings.screen.blit(o_img, (config_col[config_col_list[col-1]]['pos_y'], config_row[config_row_list[row-1]]['pos_x']))
         settings.XO = 'x'
     pg.display.update()
 
